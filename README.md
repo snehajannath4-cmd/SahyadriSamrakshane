@@ -24,7 +24,7 @@ citizens to report ecological threats in real time.
 - CameraX
 
 ## APK Download
-https://drive.google.com/file/d/1-Q5ReuFYRV6S6JBiDkqqXZ2J0bF_TM3-/view?usp=drive_link
+https://drive.google.com/file/d/17ab_0CAIz5-UXUpgU3GHmgOCFmcCd_Np/view?usp=drive_link
 
 ## Developer
 **Sneha J**
