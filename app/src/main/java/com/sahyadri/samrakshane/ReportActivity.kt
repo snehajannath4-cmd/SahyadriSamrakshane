@@ -4,7 +4,9 @@ import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
@@ -91,17 +93,10 @@ class ReportActivity : AppCompatActivity() {
                 arrayOf(Manifest.permission.CAMERA), REQUEST_CAMERA_PERMISSION)
             return
         }
-
         val timeStamp = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(Date())
         val storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES)
         photoFile = File.createTempFile("ALERT_${timeStamp}_", ".jpg", storageDir)
-
-        photoUri = FileProvider.getUriForFile(
-            this,
-            "${packageName}.fileprovider",
-            photoFile
-        )
-
+        photoUri = FileProvider.getUriForFile(this, "${packageName}.fileprovider", photoFile)
         val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
         takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoUri)
         startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE)
@@ -138,13 +133,25 @@ class ReportActivity : AppCompatActivity() {
 
     private fun isInternetAvailable(): Boolean {
         val cm = getSystemService(CONNECTIVITY_SERVICE) as ConnectivityManager
-        val info = cm.activeNetworkInfo
-        return info != null && info.isConnected
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            val network = cm.activeNetwork ?: return false
+            val capabilities = cm.getNetworkCapabilities(network) ?: return false
+            capabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET) &&
+                    capabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_VALIDATED)
+        } else {
+            val info = cm.activeNetworkInfo
+            info != null && info.isConnected
+        }
     }
 
     private fun saveToFirebase(description: String) {
+        Toast.makeText(this, "⏳ Submitting alert...", Toast.LENGTH_SHORT).show()
+
         val database = FirebaseDatabase.getInstance().reference
-        val alertId = database.child("alerts").push().key ?: return
+        val alertId = database.child("alerts").push().key ?: run {
+            saveLocally(description)
+            return
+        }
 
         val alertData = hashMapOf(
             "type" to alertType,
@@ -161,27 +168,37 @@ class ReportActivity : AppCompatActivity() {
                 Toast.makeText(this, "✅ Alert submitted successfully!", Toast.LENGTH_LONG).show()
                 finish()
             }
-            .addOnFailureListener { e ->
-                Toast.makeText(this, "❌ Failed: ${e.message}", Toast.LENGTH_LONG).show()
+            .addOnFailureListener {
+                Toast.makeText(this, "📦 No internet! Saving locally...", Toast.LENGTH_SHORT).show()
+                saveLocally(description)
             }
     }
 
     private fun saveLocally(description: String) {
-        val alert = AlertEntity(alertType, description, latitude, longitude, System.currentTimeMillis())
+        val alert = AlertEntity(
+            alertType, description, latitude, longitude,
+            System.currentTimeMillis()
+        )
         Executors.newSingleThreadExecutor().execute {
-            AlertDatabase.getInstance(this).alertDao().insertAlert(alert)
-            val constraints = Constraints.Builder()
-                .setRequiredNetworkType(NetworkType.CONNECTED)
-                .build()
-            val syncWork = OneTimeWorkRequest.Builder(SyncWorker::class.java)
-                .setConstraints(constraints)
-                .build()
-            WorkManager.getInstance(this).enqueue(syncWork)
-            runOnUiThread {
-                Toast.makeText(this,
-                    "📦 No internet! Alert saved. Will auto-upload when signal returns.",
-                    Toast.LENGTH_LONG).show()
-                finish()
+            try {
+                AlertDatabase.getInstance(this).alertDao().insertAlert(alert)
+                val constraints = Constraints.Builder()
+                    .setRequiredNetworkType(NetworkType.CONNECTED)
+                    .build()
+                val syncWork = OneTimeWorkRequest.Builder(SyncWorker::class.java)
+                    .setConstraints(constraints)
+                    .build()
+                WorkManager.getInstance(this).enqueue(syncWork)
+                runOnUiThread {
+                    Toast.makeText(this,
+                        "✅ Alert saved offline! Will auto-upload when internet returns.",
+                        Toast.LENGTH_LONG).show()
+                    finish()
+                }
+            } catch (e: Exception) {
+                runOnUiThread {
+                    Toast.makeText(this, "❌ Error: ${e.message}", Toast.LENGTH_LONG).show()
+                }
             }
         }
     }
