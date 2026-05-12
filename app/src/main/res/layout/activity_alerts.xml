@@ -5,7 +5,6 @@
     android:orientation="vertical"
     android:background="@color/bg_white">
 
-    <!-- Top Green Header -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -31,142 +30,26 @@
 
     </LinearLayout>
 
-    <!-- Alerts List -->
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="16dp">
+        android:layout_height="match_parent">
 
         <LinearLayout
+            android:id="@+id/alertsContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:padding="8dp">
 
-            <!-- Alert Card 1 - Forest Fire -->
-            <LinearLayout
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/tvNoAlerts"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:background="@color/bg_white"
-                android:elevation="4dp"
-                android:padding="14dp"
-                android:layout_marginBottom="12dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="🔥 Forest Fire"
-                    android:textColor="@color/text_primary"
-                    android:textStyle="bold"
-                    android:textSize="14sp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="13.4521° N, 75.7382° E"
-                    android:textColor="@color/text_secondary"
-                    android:textSize="12sp"
-                    android:layout_marginTop="4dp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Team Dispatched"
-                    android:textColor="@color/status_dispatched"
-                    android:textStyle="bold"
-                    android:textSize="11sp"
-                    android:background="@color/wildlife_bg"
-                    android:paddingStart="8dp"
-                    android:paddingEnd="8dp"
-                    android:paddingTop="3dp"
-                    android:paddingBottom="3dp"
-                    android:layout_marginTop="8dp" />
-
-            </LinearLayout>
-
-            <!-- Alert Card 2 - Illegal Logging -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:background="@color/bg_white"
-                android:elevation="4dp"
-                android:padding="14dp"
-                android:layout_marginBottom="12dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="🪓 Illegal Logging"
-                    android:textColor="@color/text_primary"
-                    android:textStyle="bold"
-                    android:textSize="14sp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="13.3892° N, 75.6201° E"
-                    android:textColor="@color/text_secondary"
-                    android:textSize="12sp"
-                    android:layout_marginTop="4dp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Verified"
-                    android:textColor="@color/status_verified"
-                    android:textStyle="bold"
-                    android:textSize="11sp"
-                    android:background="@color/landslide_bg"
-                    android:paddingStart="8dp"
-                    android:paddingEnd="8dp"
-                    android:paddingTop="3dp"
-                    android:paddingBottom="3dp"
-                    android:layout_marginTop="8dp" />
-
-            </LinearLayout>
-
-            <!-- Alert Card 3 - Landslide -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:background="@color/bg_white"
-                android:elevation="4dp"
-                android:padding="14dp"
-                android:layout_marginBottom="12dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="⛰️ Landslide"
-                    android:textColor="@color/text_primary"
-                    android:textStyle="bold"
-                    android:textSize="14sp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="13.5013° N, 75.8102° E"
-                    android:textColor="@color/text_secondary"
-                    android:textSize="12sp"
-                    android:layout_marginTop="4dp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Reported"
-                    android:textColor="@color/status_reported"
-                    android:textStyle="bold"
-                    android:textSize="11sp"
-                    android:background="@color/fire_bg"
-                    android:paddingStart="8dp"
-                    android:paddingEnd="8dp"
-                    android:paddingTop="3dp"
-                    android:paddingBottom="3dp"
-                    android:layout_marginTop="8dp" />
-
-            </LinearLayout>
+                android:text="No alerts submitted yet!"
+                android:textSize="16sp"
+                android:layout_gravity="center"
+                android:layout_marginTop="32dp"
+                android:visibility="gone" />
 
         </LinearLayout>
 
