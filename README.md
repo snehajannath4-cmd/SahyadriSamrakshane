@@ -1,6 +1,8 @@
 # 🌿 Sahyadri Samrakshane
 ### Forest Sentinel Android Application
 
+Developed during internship at **MindMatrix Technologies**
+
 A Kotlin-based Android app to protect the Western Ghats by enabling 
 citizens to report ecological threats in real time.
 
@@ -14,15 +16,19 @@ citizens to report ecological threats in real time.
 
 ## Tech Stack
 - Kotlin + Android Studio
+- Jetpack Compose (Splash Screen)
+- XML Layouts (remaining screens)
 - Firebase Realtime Database
 - Room Database + WorkManager
 - FusedLocationProviderClient (GPS)
 - CameraX
 
 ## APK Download
-https://drive.google.com/file/d/1FoQS5sbZxvDDcXyufGbwuj5J1LSOdo1d/view?usp=drive_link
+https://drive.google.com/file/d/1IjyocWfTsCD2WJCuqXS5cUoDP3duCeu7/view?usp=drive_link
 
 ## Developer
 **Sneha J**
 Sri Venkateshwara College Of Engineering
-MindMatrix Company
+
+## Internship
+**MindMatrix Technologies**
