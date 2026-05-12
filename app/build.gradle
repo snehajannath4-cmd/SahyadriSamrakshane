@@ -1,6 +1,7 @@
 plugins {
-    id 'com.android.application'
-    id 'com.google.gms.google-services'
+    alias(libs.plugins.android.application)
+    alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.google.services)
 }
 
 android {
@@ -26,6 +27,9 @@ android {
         sourceCompatibility JavaVersion.VERSION_11
         targetCompatibility JavaVersion.VERSION_11
     }
+    buildFeatures {
+        compose true
+    }
 }
 
 dependencies {
@@ -49,6 +53,12 @@ dependencies {
     annotationProcessor 'androidx.room:room-compiler:2.6.1'
 
     implementation 'androidx.work:work-runtime:2.9.0'
+
+    implementation platform(libs.compose.bom)
+    implementation libs.compose.ui
+    implementation libs.compose.material3
+    implementation libs.compose.ui.tooling.preview
+    implementation libs.activity.compose
 
     testImplementation libs.junit
     androidTestImplementation libs.ext.junit
