@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Base.Theme.SahyadriSamrakshane" parent="Theme.Material3.Light.NoActionBar">
+        <item name="colorPrimary">@color/forest_dark</item>
+        <item name="colorPrimaryVariant">@color/forest_medium</item>
+        <item name="colorOnPrimary">@color/text_white</item>
+        <item name="colorSecondary">@color/forest_light</item>
+        <item name="colorOnSecondary">@color/text_white</item>
+        <item name="android:statusBarColor">@color/forest_dark</item>
+        <item name="android:windowBackground">@color/bg_white</item>
+    </style>
+
+    <style name="Theme.SahyadriSamrakshane" parent="Base.Theme.SahyadriSamrakshane" />
+</resources>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Primary Green Colors -->
+    <color name="forest_dark">#2d5a1b</color>
+    <color name="forest_medium">#4a7c2f</color>
+    <color name="forest_light">#6b9f3e</color>
+
+    <!-- Background Colors -->
+    <color name="bg_light_green">#e8f5e9</color>
+    <color name="bg_white">#FFFFFF</color>
+
+    <!-- Alert Type Colors -->
+    <color name="fire_bg">#fff3e0</color>
+    <color name="fire_text">#e65100</color>
+    <color name="landslide_bg">#e8f5e9</color>
+    <color name="landslide_text">#2e7d32</color>
+    <color name="logging_bg">#fce4ec</color>
+    <color name="logging_text">#880e4f</color>
+    <color name="wildlife_bg">#e3f2fd</color>
+    <color name="wildlife_text">#0d47a1</color>
+
+    <!-- Text Colors -->
+    <color name="text_primary">#1b1b1b</color>
+    <color name="text_secondary">#555555</color>
+    <color name="text_white">#FFFFFF</color>
+    <color name="text_light_green">#a8d5a2</color>
+
+    <!-- Status Colors -->
+    <color name="status_reported">#f57f17</color>
+    <color name="status_verified">#2e7d32</color>
+    <color name="status_dispatched">#1565c0</color>
+
+    <!-- Basic -->
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+</resources>
